@@ -1,5 +1,9 @@
 const mysqlExecutor = require('../../model/mysqlExecutor');
 const mysqlStatement = require('./movietheaterStatement');
+const fs = require('fs');
+const AWS = require('aws-sdk');
+const BUCKET_NAME = 'mymoviebucketjunhoon';
+const s3 = new AWS.S3({   accessKeyId: process.env.accessKeyId,   secretAccessKey: process.env.secretAccessKey });
 
 exports.createMovietheater = async (req, res, next) => {
     try {
