@@ -45,11 +45,12 @@ exports.updateMovietheater = async (req, res, next) => {
     try {
         const name = req.body.name;
         const location = req.body.location;
+        const idx = req.body.idx;
 
 
 
         const sqldata = await mysqlExecutor(
-            await mysqlStatement.updateMovietheaterStatement(), [name, location]
+            await mysqlStatement.updateMovietheaterStatement(), [name, location, idx]
         );
 
         res.send({
@@ -68,13 +69,34 @@ exports.updateMovietheater = async (req, res, next) => {
 
 exports.deleteMovietheater = async (req, res, next) => {
     try {
-        const name = req.body.name;
-        const location = req.body.location;
-
+        const idx = req.body.idx;
 
 
         const sqldata = await mysqlExecutor(
-            await mysqlStatement.deleteMovietheaterStatement(), [name, location]
+            await mysqlStatement.deleteMovietheaterStatement(), [idx]
+        );
+
+        res.send({
+            status: 'ok',
+            message: 'success',
+            data : sqldata
+        })
+    } catch (e) {
+        console.error(e);
+        res.send({
+            status: 'FAIL',
+            messsage: '안됐어요'
+        })
+    }
+}
+
+exports.readOpenmovietheater = async (req, res, next) => {
+    try {
+        const idx = req.query.idx;
+
+
+        const sqldata = await mysqlExecutor(
+            await mysqlStatement.readOpenmovietheaterStatement(), [idx]
         );
 
         res.send({
